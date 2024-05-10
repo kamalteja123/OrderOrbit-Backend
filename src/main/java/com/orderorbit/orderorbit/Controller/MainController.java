@@ -1,6 +1,7 @@
 package com.orderorbit.orderorbit.controller;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.orderorbit.orderorbit.dto.LoginRequest;
+import com.orderorbit.orderorbit.dto.OTPVerification;
 import com.orderorbit.orderorbit.dto.ResponseStatus;
 import com.orderorbit.orderorbit.dto.RestaurantFullInfo;
 import com.orderorbit.orderorbit.models.Customer;
@@ -21,6 +23,7 @@ import com.orderorbit.orderorbit.models.Restaurant;
 import com.orderorbit.orderorbit.service.AuthService;
 import com.orderorbit.orderorbit.service.CustomerService;
 import com.orderorbit.orderorbit.service.RestaurantService;
+import com.orderorbit.orderorbit.service.impl.PasswordRestImpl;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -154,5 +157,50 @@ public class MainController {
     public ResponseEntity<List<Orders>> ordersForMyOrders(@RequestHeader String token) {
         return new ResponseEntity<List<Orders>>(customerService.allCustomerOrders(token), HttpStatus.OK);
     }
+
+    // Forget  Reset password controller for customer
+    @Autowired
+        private PasswordRestImpl passwordResetService;
+
+        @PostMapping("/request-otp")
+        public ResponseEntity<?> requestOTP(@RequestBody Map<String, String> requestBody) {
+            String email = requestBody.get("email");
+        passwordResetService.sendOTP(email);
+        return ResponseEntity.ok("OTP sent successfully");
+    }
+
+        @PostMapping("/verify-otp-customer")
+        public ResponseEntity<?> verifyOTPControllerCustomer(@RequestBody OTPVerification otpVerificationDTO) {
+            ResponseStatus response = passwordResetService.verifyOTPCustomer(otpVerificationDTO.getEmail(), otpVerificationDTO.getOtp());
+            if (response.getToken() != null) {
+                response.setMessage("OTP verified successfully");
+                return ResponseEntity.ok(response);
+            } else {
+                return ResponseEntity.badRequest().body(response.getMessage());
+            }
+        }
+
+        @PostMapping("/reset-password-customer")
+        public ResponseEntity<?> resetPasswordCustomers(@RequestHeader String token,@RequestBody Customer customer) {
+            passwordResetService.resetPasswordCustomer(token,customer);
+            return ResponseEntity.ok("Password reset successfully");
+     }
+     @PostMapping("/verify-otp-restaurent")
+     public ResponseEntity<?> verifyOTPControllerRestaurent(@RequestBody OTPVerification otpVerificationDTO) {
+        ResponseStatus response = passwordResetService.verifyOTPRestaurant(otpVerificationDTO.getEmail(), otpVerificationDTO.getOtp());
+        if (response.getToken() != null) {
+            response.setMessage("OTP verified successfully");
+            return ResponseEntity.ok(response);
+        } else {
+            return ResponseEntity.badRequest().body(response.getMessage());
+        }
+    }
+
+    @PostMapping("/reset-password-restaurent")
+    public ResponseEntity<?> resetPasswordRestaurants(@RequestHeader String token,@RequestBody Restaurant restaurant) {
+        passwordResetService.resetPasswordRestaurant(token,restaurant);
+        return ResponseEntity.ok("Password reset successfully");
+    }
+
     
 }
