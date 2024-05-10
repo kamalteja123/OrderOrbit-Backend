@@ -63,10 +63,11 @@ public ResponseStatus verifyOTPCustomer(String email, String otp) {
 
 @Override
 public void resetPasswordCustomer(String token, Customer customer) {
+    String emailFromToken = tokenObj.getEmailFromToken(token);
     if(tokenObj.getRoleFromToken(token).equals(Role.CUSTOMER.toString())){
         if (tokenObj.verifyToken(token)){
 
-            Customer cus = customerRepository.findBycEmail(customer.getCEmail()).get();
+            Customer cus = customerRepository.findBycEmail(emailFromToken).get();
             // cus.setCName(customer.getCName());
             cus.setCPassword(hashPassword(customer.getCPassword()));
             customerRepository.save(cus);
@@ -79,7 +80,7 @@ public void resetPasswordCustomer(String token, Customer customer) {
             throw new AuthorizationException("Access available only for Customers");
         }
    
-    otpMap.remove(customer.getCEmail());
+    otpMap.remove(emailFromToken);
    
 }
 
@@ -92,7 +93,7 @@ public String generateOTP() {
 
 @Override
 public ResponseStatus verifyOTPRestaurant(String email, String otp) {
-   
+    
     ResponseStatus response = new ResponseStatus();
     if (otp.equals(otpMap.get(email))) {
         String token = tokenObj.generateToken(email, Role.RESTAURANT);
@@ -106,10 +107,11 @@ public ResponseStatus verifyOTPRestaurant(String email, String otp) {
 
 @Override
 public void resetPasswordRestaurant(String token, Restaurant restaurant) {
+    String emailFromToken = tokenObj.getEmailFromToken(token);
     if(tokenObj.getRoleFromToken(token).equals(Role.RESTAURANT.toString())){
         if (tokenObj.verifyToken(token)){
 
-           Restaurant res = restaurantRepository.findByrEmail(restaurant.getREmail()).get();
+           Restaurant res = restaurantRepository.findByrEmail(emailFromToken).get();
             res.setRPassword(hashPassword(restaurant.getRPassword()));
             restaurantRepository.save(res);
         }
@@ -123,7 +125,7 @@ public void resetPasswordRestaurant(String token, Restaurant restaurant) {
    
     
 
-    otpMap.remove(restaurant.getREmail());
+    otpMap.remove(emailFromToken);
 }
 
 }
