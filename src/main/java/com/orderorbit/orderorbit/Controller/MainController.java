@@ -22,7 +22,7 @@ import com.orderorbit.orderorbit.models.Orders;
 import com.orderorbit.orderorbit.models.Restaurant;
 import com.orderorbit.orderorbit.service.AuthService;
 import com.orderorbit.orderorbit.service.CustomerService;
-import com.orderorbit.orderorbit.service.RestaurantService;
+// import com.orderorbit.orderorbit.service.RestaurantService;
 import com.orderorbit.orderorbit.service.impl.PasswordRestImpl;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -43,8 +43,8 @@ public class MainController {
     @Autowired
     AuthService auth;
 
-    @Autowired
-    RestaurantService restaurantService;
+    // @Autowired
+    // RestaurantService restaurantService;
 
     @Autowired
     CustomerService customerService;
@@ -79,47 +79,47 @@ public class MainController {
 
     // Restaurant end-points
     // Restaurant profile endpoints
-    @GetMapping("/getRestaurantProfile")
-    public ResponseEntity<Restaurant> restInfo(@RequestHeader String token) {
-        return new ResponseEntity<Restaurant>(restaurantService.getRestaurantProfile(token),HttpStatus.OK);
-    }
+    // @GetMapping("/getRestaurantProfile")
+    // public ResponseEntity<Restaurant> restInfo(@RequestHeader String token) {
+    //     return new ResponseEntity<Restaurant>(restaurantService.getRestaurantProfile(token),HttpStatus.OK);
+    // }
     
-    @PutMapping("/updateRestaurantProfile")
-    public ResponseEntity<Restaurant> updateRestInfo(@RequestHeader String token, @RequestBody Restaurant rest) {
-        return new ResponseEntity<Restaurant>(restaurantService.updateRestaurantProfile(token, rest),HttpStatus.CREATED);
-    }
+    // @PutMapping("/updateRestaurantProfile")
+    // public ResponseEntity<Restaurant> updateRestInfo(@RequestHeader String token, @RequestBody Restaurant rest) {
+    //     return new ResponseEntity<Restaurant>(restaurantService.updateRestaurantProfile(token, rest),HttpStatus.CREATED);
+    // }
 
-    // Menu service end-points
-    @GetMapping("/getAllMenuItems")
-    public ResponseEntity<List<Menu>> getMenus(@RequestHeader String token) {
-        return new ResponseEntity<List<Menu>>(restaurantService.getMenus(token), HttpStatus.OK);
-    }
+    // // Menu service end-points
+    // @GetMapping("/getAllMenuItems")
+    // public ResponseEntity<List<Menu>> getMenus(@RequestHeader String token) {
+    //     return new ResponseEntity<List<Menu>>(restaurantService.getMenus(token), HttpStatus.OK);
+    // }
     
-    @PostMapping("/addMenuItem")
-    public ResponseEntity<Menu> addMenuItem(@RequestHeader String token, @RequestHeader String mitemName, @RequestHeader long mitemPrice, @RequestBody MultipartFile img) {
-        return new ResponseEntity<Menu>(restaurantService.addMenuItem(token, mitemName, mitemPrice, img), HttpStatus.CREATED);
-    }
+    // @PostMapping("/addMenuItem")
+    // public ResponseEntity<Menu> addMenuItem(@RequestHeader String token, @RequestHeader String mitemName, @RequestHeader long mitemPrice, @RequestBody MultipartFile img) {
+    //     return new ResponseEntity<Menu>(restaurantService.addMenuItem(token, mitemName, mitemPrice, img), HttpStatus.CREATED);
+    // }
 
-    @PutMapping("/updateMenuItem/{mItemId}")
-    public ResponseEntity<Menu> updateMItem(@PathVariable("mItemId") UUID mItemId, @RequestBody MultipartFile img, @RequestHeader String token, @RequestHeader String mitemName, @RequestHeader long mitemPrice) {
-        return new ResponseEntity<Menu>(restaurantService.updateMenuItem(mItemId, img, token, mitemName, mitemPrice), HttpStatus.ACCEPTED);
-    }
+    // @PutMapping("/updateMenuItem/{mItemId}")
+    // public ResponseEntity<Menu> updateMItem(@PathVariable("mItemId") UUID mItemId, @RequestBody MultipartFile img, @RequestHeader String token, @RequestHeader String mitemName, @RequestHeader long mitemPrice) {
+    //     return new ResponseEntity<Menu>(restaurantService.updateMenuItem(mItemId, img, token, mitemName, mitemPrice), HttpStatus.ACCEPTED);
+    // }
 
-    @DeleteMapping("/deleteMenuItem/{mItemId}")
-    public ResponseEntity<String> deleteMItem(@PathVariable("mItemId") UUID mItemId,@RequestHeader String token) {
-        return new ResponseEntity<String>(restaurantService.deleteMenuItem(mItemId, token), HttpStatus.OK);
-    }
+    // @DeleteMapping("/deleteMenuItem/{mItemId}")
+    // public ResponseEntity<String> deleteMItem(@PathVariable("mItemId") UUID mItemId,@RequestHeader String token) {
+    //     return new ResponseEntity<String>(restaurantService.deleteMenuItem(mItemId, token), HttpStatus.OK);
+    // }
 
-    // Dashboard service end-points
-    @GetMapping("/ordersAtRestaurantDashboard")
-    public ResponseEntity<List<Orders>> getOrdersByrId(@RequestHeader String token) {
-        return new ResponseEntity<List<Orders>>(restaurantService.allOrdersAtRestaurantDashboard(token), HttpStatus.OK);
-    }
+    // // Dashboard service end-points
+    // @GetMapping("/ordersAtRestaurantDashboard")
+    // public ResponseEntity<List<Orders>> getOrdersByrId(@RequestHeader String token) {
+    //     return new ResponseEntity<List<Orders>>(restaurantService.allOrdersAtRestaurantDashboard(token), HttpStatus.OK);
+    // }
     
-    @PutMapping("updateOStatusToCompleted/{oId}")
-    public ResponseEntity<String> updateOStaus(@PathVariable("oId") UUID oId, @RequestHeader String token) {
-        return new ResponseEntity<String>(restaurantService.updateOStatusToCompl(oId, token),HttpStatus.ACCEPTED);
-    }
+    // @PutMapping("updateOStatusToCompleted/{oId}")
+    // public ResponseEntity<String> updateOStaus(@PathVariable("oId") UUID oId, @RequestHeader String token) {
+    //     return new ResponseEntity<String>(restaurantService.updateOStatusToCompl(oId, token),HttpStatus.ACCEPTED);
+    // }
     
 
     // Customer end-points

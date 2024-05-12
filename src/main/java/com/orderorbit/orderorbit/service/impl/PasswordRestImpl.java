@@ -2,7 +2,6 @@ package com.orderorbit.orderorbit.service.impl;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Random;
 
 import org.mindrot.jbcrypt.BCrypt;
@@ -11,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.orderorbit.orderorbit.dto.ResponseStatus;
 import com.orderorbit.orderorbit.exception.AuthorizationException;
-import com.orderorbit.orderorbit.exception.DuplicateResourceException;
+
 import com.orderorbit.orderorbit.models.Customer;
 import com.orderorbit.orderorbit.models.Restaurant;
 import com.orderorbit.orderorbit.repository.CustomerRepository;
