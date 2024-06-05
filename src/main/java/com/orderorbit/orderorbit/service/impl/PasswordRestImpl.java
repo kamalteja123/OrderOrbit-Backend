@@ -67,7 +67,7 @@ public void resetPasswordCustomer(String token, Customer customer) {
         if (tokenObj.verifyToken(token)){
 
             Customer cus = customerRepository.findBycEmail(emailFromToken).get();
-            // cus.setCName(customer.getCName());
+            cus.setCName(customer.getCName());
             cus.setCPassword(hashPassword(customer.getCPassword()));
             customerRepository.save(cus);
         }

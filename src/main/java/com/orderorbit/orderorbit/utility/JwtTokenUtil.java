@@ -16,8 +16,8 @@ import io.jsonwebtoken.security.Keys;
 
 @Component
 public class JwtTokenUtil {
-    // @Value("${SECRETKEY}")
-    private String secret="dhsfdlkjhkjfldsjeu58833h3brdsfdsbflDFDFJKFNDJKKJ88348bjkdslffldfbdgfdf";
+    @Value("${SECRETKEY}")
+    private String secret;
 
     public String generateToken(String email, Role role) {
         // System.out.println(secret);
