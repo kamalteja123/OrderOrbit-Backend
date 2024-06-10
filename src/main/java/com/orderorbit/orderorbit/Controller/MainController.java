@@ -199,7 +199,7 @@ public class MainController {
     @PostMapping("/reset-password-restaurent")
     public ResponseEntity<?> resetPasswordRestaurants(@RequestHeader String token,@RequestBody Restaurant restaurant) {
         passwordResetService.resetPasswordRestaurant(token,restaurant);
-        return ResponseEntity.ok("Password reset successfully");
+        return ResponseEntity.ok("Password reset succes");
     }
 
     
