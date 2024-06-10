@@ -13,7 +13,7 @@ services:
       - db_data:/var/lib/mysql
 
   app:
-    build: order-orbit-img1:latest
+    image: order-orbit-img1:latest
     ports:
       - "8081:8081"
     environment:
