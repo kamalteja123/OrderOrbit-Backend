@@ -8,7 +8,7 @@ WORKDIR /app
 COPY target/*.jar app.jar
  
 # Expose the port the application runs on
-EXPOSE 8080
+EXPOSE 8081
  
 # Run the JAR file
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["sh", "-c", "java -jar app.jar --server.port=${SERVER_PORT}"]
